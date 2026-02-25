@@ -2,16 +2,17 @@
 
 # Build:
 For build you can use attached CMakeList.txt.
-Or you can use custom build.
 ```
-# For Windows
-g++ main.cpp -o contactDem.exe
+sudo apt update
+cd ~
+git clone https://github.com/msemancik/contactDemEvaluator.git
+cd contactDemEvaluator
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local
+make install -j
 ```
-```
-# For Linux
-g++ main.cpp -o contactDem
-```
-Note. that it requires g++ compiler. Also note that for intel architecture is better to use icpx build.
+Or optionally you can use make.sh file for common C++ file compilation.
 # LIGGGHTS implementation:
 For LIGGGHTS input script its necessary to include following commands.
 
@@ -27,3 +28,12 @@ dump    dumpoutforcepair all local ${dumpfreq} post/pair_forcechains_*.dump c_fo
 dump    dumpoutforcewall all local ${dumpfreq} post/wall_forcechains_*.dump c_forcechainswall[1] c_forcechainswall[2] c_forcechainswall[3] c_forcechainswall[4] c_forcechainswall[5] c_forcechainswall[6] c_forcechainswall[7] c_forcechainswall[8] c_forcechainswall[9] c_forcechainswall[10] c_forcechainswall[11] c_forcechainswall[12] c_forcechainswall[13] c_forcechainswall[14] c_forcechainswall[15] c_forcechainswall[16] c_forcechainswall[17] c_forcechainswall[18]  
 ```
 # Usage:
+After you run a simulation just open terminal and type:
+```
+./contactDem -dry folderPath initialStep dumpStep endStep
+```
+Example might look like this:
+```
+cd /home/user/Documents/mySimulation/
+./contactDem -dry post 0 4000 12000
+```
