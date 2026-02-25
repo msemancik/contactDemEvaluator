@@ -27,8 +27,7 @@ void theme() {
     std::cout << "\033[38;2;255;255;255m";
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "Author: Marek Semancik" << std::endl;
-    std::cout << "Version: 2026-01-29" << std::endl;
-    std::cout << "OS: Windows 10 Pro" << std::endl;
+    std::cout << "Version: 2026-02-25" << std::endl;
     std::cout << "Editor: CLion" << std::endl;
     std::cout << "Encoding: UTF-8" << std::endl;
     std::cout << "Compiler: g++" << std::endl;
@@ -71,9 +70,11 @@ bool fileExists(const std::string& filename) {
 }
 
 bool findInitDump(const std::string& name) {
-    return name.starts_with("dump_") &&
-       name.find("rev_") != std::string::npos &&
-       name.ends_with(".atom");
+    bool starts = (name.size() >= 5 && name.compare(0, 5, "dump_") == 0);
+
+    bool ends = (name.size() >= 5 && name.compare(name.size() - 5, 5, ".atom") == 0);
+
+    return starts && (name.find("rev_") != std::string::npos) && ends;
 }
 
 std::string findRadius(const std::string& name){
@@ -213,7 +214,7 @@ public:
     std::vector<Positon> positionsY;
 
     void setDeltaT(double radius) {
-        if (radius < 5e-3) {
+        if (radius < 5e-4) {
             deltaT = 1e-5;
         }
         else {
