@@ -37,3 +37,29 @@ Example might look like this:
 cd /home/user/Documents/mySimulation/
 ./contactDem -dry post 0 4000 12000
 ```
+# Potential Troubleshooting
+**1) Finding initial dump:**
+To set initial parameters for calculation it is necessary to load initial dump.
+From attached code it is clear that initial dump has to be in this format:
+a) file starts with dump prefix, b) file has in its name rev_, c) file ends with .atom extension. For your environment it is necessary to change this part of code.
+```
+bool findInitDump(const std::string& name) {
+    bool starts = (name.size() >= 5 && name.compare(0, 5, "dump_") == 0);
+
+    bool ends = (name.size() >= 5 && name.compare(name.size() - 5, 5, ".atom") == 0);
+
+    return starts && (name.find("rev_") != std::string::npos) && ends;
+}
+```
+**2) Timestep determination:**
+Unfortunately from initial dump there is no possibility to load timestep info. For default settings timestep is determinated via radius. For your different timestep you have to change following setter.
+```
+void setDeltaT(double radius) {
+  if (radius < 5e-4) {
+    deltaT = 1e-5;
+          }
+  else {
+    deltaT = 2e-5;
+          }
+}
+```
