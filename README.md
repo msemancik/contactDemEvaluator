@@ -2,7 +2,7 @@
 
 # Build:
 For build you can use attached CMakeList.txt.
-```
+```bash
 sudo apt update
 cd ~
 git clone https://github.com/msemancik/contactDemEvaluator.git
@@ -42,7 +42,7 @@ cd /home/user/Documents/mySimulation/
 To set initial parameters for calculation it is necessary to load initial dump.
 From attached code it is clear that initial dump has to be in this format:
 a) file starts with dump prefix, b) file has in its name rev_, c) file ends with .atom extension. For your environment it is necessary to change this part of code.
-```
+```cpp
 bool findInitDump(const std::string& name) {
     bool starts = (name.size() >= 5 && name.compare(0, 5, "dump_") == 0);
 
@@ -53,7 +53,7 @@ bool findInitDump(const std::string& name) {
 ```
 **2) Timestep determination:**
 Unfortunately from initial dump there is no possibility to load timestep info. For default settings timestep is determinated via radius. For your different timestep you have to change following setter.
-```
+```cpp
 void setDeltaT(double radius) {
   if (radius < 5e-4) {
     deltaT = 1e-5;
