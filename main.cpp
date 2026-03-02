@@ -28,6 +28,7 @@ void theme() {
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "Author: Marek Semancik" << std::endl;
     std::cout << "Version: 2026-02-25" << std::endl;
+    std::cout << "OS: Windows 10 Pro" << std::endl;
     std::cout << "Editor: CLion" << std::endl;
     std::cout << "Encoding: UTF-8" << std::endl;
     std::cout << "Compiler: g++" << std::endl;
@@ -77,55 +78,41 @@ bool findInitDump(const std::string& name) {
     return starts && (name.find("rev_") != std::string::npos) && ends;
 }
 
-std::string findRadius(const std::string& name){
+std::string findRadius(const std::string& name) {
     std::ifstream file(name);
-    if (!file.is_open()) {
-        std::cerr << "Cannot open file: " << name << "\n";
-        return "-1";
-    }
+    if (!file.is_open()) return "";
 
     std::string line;
-    int radiusIndex = -1;
-    std::string radiusValue;
-    for (int i = 1; i <= 10; ++i) {
-        if (!std::getline(file, line)) {
-            line.clear();
-            break;
-        }
+    while (std::getline(file, line)) {
+        if (line.find("ITEM: ATOMS") != std::string::npos) {
+            std::istringstream ss(line);
+            std::string column;
+            std::vector<std::string> header;
 
-        if (i == 9) {
+            while (ss >> column) {
+                header.push_back(column);
+            }
 
-            if (!line.empty()) {
-                std::istringstream ss(line);
-                std::string column;
-                int index = 0;
-
-                while (ss >> column) {
-                    if (column == "radius") {
-                        radiusIndex = index - 2;
-                        break;
-                    }
-                    ++index;
+            int radiusIndex = -1;
+            for (int i = 0; i < header.size(); ++i) {
+                if (header[i] == "radius") {
+                    radiusIndex = i - 2;
+                    break;
                 }
             }
-        }
-        if (i == 10)
-        {
-            if (radiusIndex != -1 && !line.empty()) {
-                std::istringstream ss(line);
+
+            if (radiusIndex != -1 && std::getline(file, line)) {
+                std::istringstream data(line);
                 std::string value;
-                int index = 0;
-                while (ss >> value) {
-                    if (index == radiusIndex) {
-                        radiusValue = value;
-                        break;
-                    }
-                    ++index;
+                int currentIndex = 0;
+                while (data >> value) {
+                    if (currentIndex == radiusIndex) return value;
+                    currentIndex++;
                 }
             }
         }
     }
-    return radiusValue;
+    return "";
 }
 
 // Structures
