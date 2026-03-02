@@ -28,10 +28,8 @@ void theme() {
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "Author: Marek Semancik" << std::endl;
     std::cout << "Version: 2026-02-25" << std::endl;
-    std::cout << "OS: Windows 10 Pro" << std::endl;
     std::cout << "Editor: CLion" << std::endl;
     std::cout << "Encoding: UTF-8" << std::endl;
-    std::cout << "Compiler: g++" << std::endl;
     std::cout << "----------------------------------------" << std::endl;
 }
 
