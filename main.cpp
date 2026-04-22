@@ -410,7 +410,7 @@ public:
             double medianPairs = pairs.medianContact();
             double trimmedMeanPairs = pairs.trimmedMeanContact(trimRatio);
             double cvPairs = stdPairs / meanPairs;
-            double meanCNPairs = pairs.meanCoordination(totalParticles);
+            double meanCNPairs = 2*pairs.meanCoordination(totalParticles);
 
             double meanWalls = walls.meanContact();
             double stdWalls = walls.stdContact();
@@ -418,7 +418,7 @@ public:
             double medianWalls = walls.medianContact();
             double trimmedMeanWalls = walls.trimmedMeanContact(trimRatio);
             double cvWalls = stdWalls / meanWalls;
-            double meanCNWalls = walls.meanCoordination(totalParticles);
+            double meanCNWalls = 2*walls.meanCoordination(totalParticles);
 
             double contactTimeRatio = meanWalls / meanPairs;
 
@@ -533,7 +533,7 @@ public:
             double medianPairs = pairs.medianContact();
             double trimmedMeanPairs = pairs.trimmedMeanContact(trimRatio);
             double cvPairs = stdPairs / meanPairs;
-            double meanCNPairs = pairs.meanCoordination(totalParticles);
+            double meanCNPairs = 2*pairs.meanCoordination(totalParticles);
             double meanBridgePairs = pairs.meanBridgeVolume(particleRadius,false);
             double medianBridgePairs = pairs.medianBridgeVolume(particleRadius,false);
 
@@ -543,7 +543,7 @@ public:
             double medianWalls = walls.medianContact();
             double trimmedMeanWalls = walls.trimmedMeanContact(trimRatio);
             double cvWalls = stdWalls / meanWalls;
-            double meanCNWalls = walls.meanCoordination(totalParticles);
+            double meanCNWalls = 2*walls.meanCoordination(totalParticles);
             double meanBridgeWalls = walls.meanBridgeVolume(particleRadius,true);
             double medianBridgeWalls = walls.medianBridgeVolume(particleRadius,true);
 
