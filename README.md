@@ -30,12 +30,12 @@ dump    dumpoutforcewall all local ${dumpfreq} post/wall_forcechains_*.dump c_fo
 # Usage:
 After you run a simulation just open terminal and type:
 ```
-./contactDem -dry folderPath initialStep dumpStep endStep
+./contactDem -default folderPath initialStep dumpStep endStep
 ```
 Example might look like this:
 ```
 cd /home/user/Documents/mySimulation/
-./contactDem -dry post 0 4000 12000
+./contactDem -default post 0 4000 12000
 ```
 # Potential Troubleshooting
 **1) Finding initial dump:**
